@@ -5,6 +5,7 @@ const notFound = () => {
   return (
     <Fragment>
       <Drinks />
+      <h2>No drinks here !</h2>
     </Fragment>
   );
 };

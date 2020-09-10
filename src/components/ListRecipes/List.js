@@ -1,32 +1,31 @@
 import React, { Fragment, useState } from 'react';
 import Modal from '../RecipeModal/Modal';
-import {useLocation} from "react-router-dom";
 import { ReactComponent as BeerDivider } from '../../assets/beerDivider.svg'
 import { ReactComponent as CocktailDivider } from '../../assets/cocktailDivider.svg'
 import { ReactComponent as ShakeDivider } from '../../assets/shakeDivider.svg'
 import './list.scss'
 
-const List = React.memo(({recipesArray}) => {
-  let queryParams = useLocation();
+const List = React.memo(({recipesArray, actualCat}) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
 
   const recipes = recipesArray.map((recipe) => {
     return (
     <li onClick={() => {setSelectedId(recipe.idDrink); setShowModal(true); }} className="recipe" key={recipe.idDrink}>
-      <div className="recipe__picture" style={{ 'backgroundImage': `radial-gradient( circle farthest-corner at -4% -12.9%,  rgba(74,98,110,1) 0.3%, rgba(30,33,48,1) 90.2% ), url(${recipe.strDrinkThumb})`}}></div>
+      <div className="recipe__picture" style={{ 'backgroundImage': `radial-gradient( circle farthest-corner at -4% -12.9%,  rgba(74,98,110,1) 0.3%, rgba(30,33,48,1) 90.2% ),
+       url(${recipe.strDrinkThumb})`}}></div> {/*Ici on vien appliquer un style "dynamique" pour afficher l'image d'une recette, en plus de lui mettre un radial-gradient */}
       <p className="recipe__title">{recipe.strDrink}</p>
       <button className="recipe__button" ><i className="fa fa-angle-right" aria-hidden="true"></i></button>
-    </li>
+    </li> // Lorsque l'on clique sur une recette de la liste, on vient ici modifier le state pour l'id selectionné et passé de false à true le state pour montrer la modal !
   )});
 
   /**
-   * better to do with context api of React, but here you can see how to use the useLocation hook of react-router-dom
+   * Mieux de le faire avec le context api de React je trouve car il fait aussi partie du "theme", mais nous pouvons aussi l'utilisé de cette façons car nous avons utilisé, dans le parent,
+   * le hook useLocation afin de récupérer la catégorie actuel.
   */
   const getShapeDivider = () => {
-    const param = new URLSearchParams(queryParams.search).get('cat');
     let divider = null;
-    switch (param) {
+    switch (actualCat) { //switch celon le props actualCat retournant donc le divider adéquat.
       case 'cocktail':
         divider = <CocktailDivider/>
         break;

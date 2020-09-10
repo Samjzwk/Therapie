@@ -4,6 +4,8 @@ import loadable from "@loadable/component";
 import { Dot } from "../Spinner";
 import {ThemeProvider} from '../../utils/context/ThemeContexte';
 
+//ici nous faisons du code splitting avec une interface de supply, il permet ici de charger uniquement ce dont il a besoin
+
 const fallBack = { fallback: <Dot /> };
 const Home = loadable(() => import("../../routes/Home"), fallBack);
 const Recipes = loadable(() => import("../../routes/Recipes"), fallBack);
