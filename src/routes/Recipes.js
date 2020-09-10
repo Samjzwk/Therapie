@@ -15,7 +15,7 @@ function Recipes(props) {
   useEffect(()=>{
     setActualCat(new URLSearchParams(queryParams.search).get('cat')); // on vient utiliser le hook useLocation de react-router-dom afin de récuperer la catégorie en cours que contient l'url
     setTheme(actualCat);
-    const url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${param}`;
+    const url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${actualCat}`;
     async function getRecipes(){
       await axios
       .get(url)
