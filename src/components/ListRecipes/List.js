@@ -1,13 +1,15 @@
 import React, { Fragment, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import Modal from '../RecipeModal/Modal';
 import { ReactComponent as BeerDivider } from '../../assets/beerDivider.svg'
 import { ReactComponent as CocktailDivider } from '../../assets/cocktailDivider.svg'
 import { ReactComponent as ShakeDivider } from '../../assets/shakeDivider.svg'
 import './list.scss'
 
-const List = React.memo(({recipesArray, actualCat}) => {
+const List = React.memo(({recipesArray}) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
+  let queryParams = useLocation(); 
 
   const recipes = recipesArray.map((recipe) => {
     return (
@@ -20,12 +22,13 @@ const List = React.memo(({recipesArray, actualCat}) => {
   )});
 
   /**
-   * Mieux de le faire avec le context api de React je trouve car il fait aussi partie du "theme", mais nous pouvons aussi l'utilisé de cette façons car nous avons utilisé, dans le parent,
+   * Mieux de le faire avec le context api de React je trouve car il fait aussi partie du "theme", mais nous pouvons aussi l'utilisé de cette façons avec le hook useLocation
    * le hook useLocation afin de récupérer la catégorie actuel.
   */
   const getShapeDivider = () => {
+    const param = new URLSearchParams(queryParams.search).get('cat');
     let divider = null;
-    switch (actualCat) { //switch celon le props actualCat retournant donc le divider adéquat.
+    switch (param) {
       case 'cocktail':
         divider = <CocktailDivider/>
         break;

@@ -7,15 +7,14 @@ import { ThemeContext } from '../utils/context/ThemeContexte';
 
 function Recipes(props) {
   const [recipes, setRecipes] = useState([]); //initialisation du state et de sa fonction de modification.
-  const [actualCat,setActualCat] = useState();
   let queryParams = useLocation(); 
   const { setTheme } = useContext(ThemeContext); // on vient récupérer et utiliser la fonction de modification du theme du contexte pour changer celon la catégorie choisit
 
 
   useEffect(()=>{
-    setActualCat(new URLSearchParams(queryParams.search).get('cat')); // on vient utiliser le hook useLocation de react-router-dom afin de récuperer la catégorie en cours que contient l'url
-    setTheme(actualCat);
-    const url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${actualCat}`;
+    const param = new URLSearchParams(queryParams.search).get('cat'); // on vient utiliser le hook useLocation de react-router-dom afin de récuperer la catégorie en cours que contient l'url
+    setTheme(param);
+    const url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${param}`;
     async function getRecipes(){
       await axios
       .get(url)
@@ -27,11 +26,12 @@ function Recipes(props) {
       );
     };
     getRecipes();
-  }, [actualCat, queryParams.search, setTheme]) // ici useEffect s'éxécutera de nouveau si une des variables présentes dans le tableau des dépendances changent
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [queryParams.search]) // ici useEffect s'éxécutera de nouveau si une des variables présentes dans le tableau des dépendances changent
 
   return (
     <Layout>
-      <ListRecipes recipesArray={recipes} actualCat={actualCat} />
+      <ListRecipes recipesArray={recipes} />
     </Layout>
   );
 }
