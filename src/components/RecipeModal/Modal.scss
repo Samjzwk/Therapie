@@ -1,0 +1,94 @@
+@import '../../utils/styles/mixins/breakpoint.scss';
+
+
+.ReactModal__Overlay{
+  z-index: 5;
+}
+
+.modal{
+  width: 95%;
+  height:95%;
+  top: 1rem;
+  border-radius: 1rem;
+  outline: none;
+  display: flex;
+  position: absolute;
+  margin: auto;
+  background: white;
+  position: relative;
+  transition: all 0.4s ease;
+
+  @include breakpoint(extra-large-device){
+    width: 960px;
+    height: 55vh;
+    max-height: 516px;
+    top: 2rem;
+  }
+
+
+  &__picture{
+    width: 50%;
+    display: flex;
+    height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+
+  }
+  &__body{
+    width: 50%;
+    padding: 1rem 0;
+    overflow-y: auto;
+
+  }
+
+  &__close{
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    cursor: pointer;
+  }
+
+  &__title{
+    padding: 0 1rem;
+
+    margin: 0;
+
+  }
+  &__alcool{
+    padding: 0 1rem;
+    font-size: 0.7rem;
+  }
+
+  &__ingredients{
+    list-style-type: none;
+    margin: 1rem 0;
+    padding: 0;
+    background-color:#141518;
+    padding: 1rem 1rem 0 1rem;
+    text-align: center;
+
+    li{
+      line-height: 2rem;
+      display: inline-block;
+      background-color: var(--backgroundTheme);
+      padding: 0 1rem;
+      border-radius: 1rem;
+      margin-right: 1rem;
+      margin-bottom: 1rem;
+      color: white;
+      word-break: normal;
+    }
+  }
+  &__steps{
+    padding: 0 1rem;
+  }
+}
+
+.ingredient{
+  &__mesure{
+    text-transform: capitalize;
+  }
+}

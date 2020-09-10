@@ -1,0 +1,26 @@
+@mixin breakpoint($point, $value: 0) {
+
+  @if $point==large-device {
+    @media (min-width: 64em) {
+      @content ;
+    }
+  }
+
+  @if $point==extra-large-device {
+    @media (min-width: 80em) {
+      @content ;
+    }
+  }
+
+  @else {
+    @media ($point: $value) {
+      @content;
+    }
+  }
+}
+
+@mixin between-breakpoints($min, $max) {
+  @media (min-width: $min) and (max-width: $max) {
+    @content;
+  }
+}
